@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "klang_verso_mvp"
 authors = [{name = "Justin Bui", email = "jmbui@klangverso.com"}]
-version = "0.1.o"
+version = "0.1.0"
 requires-python = ">=3.8"
 dependencies = [
     "kv_image_pipeline",
