@@ -17,4 +17,4 @@ dependencies = [
     "kv_text_processing",
     "streamlit",
     "pytesseract",
-    "pypdf2"]
+    "fitz"]
