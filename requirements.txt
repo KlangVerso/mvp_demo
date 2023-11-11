@@ -5,4 +5,4 @@ kv_text_processing
 kv_text_to_speech
 streamlit
 pytesseract
-pymupdf
+pypdf2
