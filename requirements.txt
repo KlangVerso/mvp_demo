@@ -1,0 +1,8 @@
+kv_image_pipeline
+kv_segmentor
+kv_audio_pipeline
+kv_text_processing
+kv_text_to_speech
+streamlit
+pytesseract
+pymupdf
