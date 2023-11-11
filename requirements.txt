@@ -5,5 +5,5 @@ kv_text_processing
 kv_text_to_speech
 streamlit
 pytesseract
-pymupdf
-frontend
+PyMuPDF==1.18.15
+
