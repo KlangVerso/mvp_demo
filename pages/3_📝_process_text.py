@@ -11,7 +11,9 @@ st.markdown(
     Select the article that you would like to perform OCR on. You will have the option to modify the text to ensure
     that the text-to-speech functionality matches your expectations."""
 )
-
+text = ""
+if 'text' not in st.session_state:
+    st.session_state.text = text
 
 def file_selector(folder_path='.'):
     files = []
@@ -27,15 +29,14 @@ def file_selector(folder_path='.'):
 
 filename = file_selector()
 perf_ocr = st.button('Process My Article', key='perform_ocr')
+
+
 if perf_ocr:
     article_txt = itt.extract_text_from_image(img_path=filename, file_name='my_article', save_file=False)
     cleaned_txt = itt.clean_extracted_text(article_txt)
-#st.write(cleaned_txt)
+    st.session_state.text = cleaned_txt
 
-    user_edited_txt = st.text_area(value=cleaned_txt, label='Your Selected Articles Text')
-    save_edits = st.button(label="Save My Edits", key='save_edits')
-    if save_edits:
-        if 'final_text' not in st.session_state:  # create the state_session variable if it doesn't exist
-            st.session_state['final_text'] = user_edited_txt
-        else:  # update the user edited text
-            st.session_state['final_text'] = user_edited_txt
+st.session_state.text = st.text_area(value=st.session_state.text,
+                             label='Your Selected Articles Text')
+
+st.write(st.session_state.text)

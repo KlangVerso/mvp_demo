@@ -13,15 +13,16 @@ st.markdown(
 )
 reader = st.radio(
     "Please Select your speaker",
-    ["Davis", "Tony", "Amber", "Jenny"],
-    captions=[])
+    ["Davis", "Tony", "Amber", "Jenny"])
 
 audio_button = st.button('Generate Audio File.')
 
 if audio_button:
 
     ap = AudioPipeline("", article_title='audio_out')
-    ap.text = st.session_state['final_text']
+    ap.text = st.session_state.text
+
+    print(st.session_state['final_text'])
     ap.initialize_speech_service(st.secrets["speech_api"], st.secrets["speech_region"])
 
     # Change reader, selected by radio buttons

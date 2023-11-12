@@ -1,7 +1,8 @@
 from kv_image_pipeline import image_pipeline
-from tempfile import NamedTemporaryFile
+import pdf2image
 import streamlit as st
 import os
+from io import BytesIO
 import PIL.Image as image
 
 st.set_page_config(
@@ -17,6 +18,7 @@ st.markdown(
 pdf_file = st.file_uploader('Select an pdf file to be processed.')
 
 if pdf_file:
+
     with open("temp.pdf", 'wb') as pdf:
         pdf.write(pdf_file.getbuffer())
         pdf.close()
