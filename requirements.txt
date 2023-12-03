@@ -1,7 +1,7 @@
  kv_image_pipeline
  kv_audio_pipeline
- kv_text_to_speech
  kv_text_processing
- streamlit==1.24.0
+ kv_pdf_processor
+ streamlit
  pytesseract
  pymupdf

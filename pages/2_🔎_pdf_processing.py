@@ -1,5 +1,4 @@
 from kv_image_pipeline import image_pipeline
-import pdf2image
 import streamlit as st
 import os
 from io import BytesIO
