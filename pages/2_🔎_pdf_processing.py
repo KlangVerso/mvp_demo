@@ -22,13 +22,13 @@ if pdf_file:
         pdf.write(pdf_file.getbuffer())
         pdf.close()
 
-    pdf_splitter.split_pdf(file_path='temp.pdf', output_dir='./temp')
-    if len(os.listdir('./temp')) > 4:
+    pdf_splitter.split_pdf(file_path='temp.pdf', output_dir='./')
+    if len(os.listdir('./')) > 4:
         st.write('This file is too large to process in this demo. Please select a smaller file.')
-        for file in os.listdir('./temp'):
+        for file in os.listdir('./'):
             os.remove(file)
     else:
-        for files in os.listdir('./temp'):
+        for files in os.listdir('./'):
             if files.endswith('.pdf'):
                 pdf_to_image.convert_pdf_to_jpeg(pdf_path=files, output_dir='./')
 
