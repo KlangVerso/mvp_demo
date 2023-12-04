@@ -3,7 +3,7 @@ import os
 import kv_text_processing.img_to_text as itt
 
 st.set_page_config(
-    page_title="KlangVerso - Processing Text",
+    page_title="KlangVerso - Edit Your Text",
     page_icon="📝",
 )
 st.markdown(

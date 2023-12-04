@@ -1,4 +1,4 @@
-from kv_image_pipeline import image_pipeline
+from kv_pdf_processor import pdf_splitter, pdf_to_image
 import streamlit as st
 import os
 from io import BytesIO
@@ -21,11 +21,18 @@ if pdf_file:
     with open("temp.pdf", 'wb') as pdf:
         pdf.write(pdf_file.getbuffer())
         pdf.close()
-    segment_path = os.path.relpath('best_segment_model.pt', start = os.curdir)
-    my_pipe = image_pipeline.ImagePipeline(pdf_path='temp.pdf',
-                                           file_name='testfile',
-                                           output_dir_path="./temp",
-                                           segment_model_path='./best_segmentation_model.pt')
-    my_pipe.run_pipeline()
+
+    pdf_splitter.split_pdf(pdf_path='temp.pdf', output_dir_path='./temp')
+    if len(os.listdir('./temp')) > 4:
+        st.write('This file is too large to process in this demo. Please select a smaller file.')
+        for file in os.listdir('./temp'):
+            os.remove(file)
+    else:
+        for files in os.listdir('./temp'):
+            if files.endswith('.pdf'):
+                pdf_to_image.pdf_to_image(pdf_path='temp.pdf', output_dir_path='./temp')
+
+
+
 
 
