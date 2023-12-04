@@ -30,7 +30,7 @@ if pdf_file:
     else:
         for files in os.listdir('./temp'):
             if files.endswith('.pdf'):
-                pdf_to_image.pdf_to_image(pdf_path=files, output_dir_path='.')
+                pdf_to_image.convert_pdf_to_jpeg(pdf_path=files, output_dir='.')
 
 
 
