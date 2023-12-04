@@ -22,7 +22,7 @@ if pdf_file:
         pdf.write(pdf_file.getbuffer())
         pdf.close()
 
-    pdf_splitter.split_pdf(pdf_path='temp.pdf', output_dir_path='./temp')
+    pdf_splitter.split_pdf(file_path='temp.pdf', output_dir_path='./temp')
     if len(os.listdir('./temp')) > 4:
         st.write('This file is too large to process in this demo. Please select a smaller file.')
         for file in os.listdir('./temp'):
