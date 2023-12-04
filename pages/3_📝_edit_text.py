@@ -35,6 +35,8 @@ if perf_ocr:
     article_txt = itt.extract_text_from_image(img_path=filename, file_name='my_article', save_file=False)
     cleaned_txt = itt.clean_extracted_text(article_txt)
     st.session_state.text = cleaned_txt
+    os.remove('./temp')
+    os.remove('temp.pdf')
 
 st.session_state.text = st.text_area(value=st.session_state.text,
                              label='Your Selected Articles Text')
