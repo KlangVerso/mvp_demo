@@ -1,4 +1,5 @@
 import streamlit as st
+import requests
 import os
 from kv_audio_pipeline.audio_pipeline import AudioPipeline
 
@@ -6,44 +7,60 @@ st.set_page_config(
     page_title="KlangVerso - Audio Generation",
     page_icon="🔊",
 )
-st.markdown(
-    """
-    Now that we've processed the article and have made the appropriate edits, let's process the text and generate
-    some audio. """
-)
-reader = st.radio(
-    "Please Select your speaker",
-    ["Davis", "Tony", "Amber", "Jenny"])
 
-audio_button = st.button('Generate Audio File.')
+if st.session_state.auth_status:
 
-if audio_button:
+    st.markdown(
+        """
+        Now that we've processed the article and have made the appropriate edits, we will generate your audio. 
+        """
+    )
 
-    ap = AudioPipeline("", article_title='audio_out')
-    ap.text = st.session_state.text
+    CHUNK_SIZE = 1024
 
-    print(st.session_state['final_text'])
-    ap.initialize_speech_service(st.secrets["speech_api"], st.secrets["speech_region"])
+    reader = st.radio(
+        "Please Select your speaker",
+        ["Natasha", "Hades", "Oswald", "Sally", 'Readwell', 'Bob'])
 
-    # Change reader, selected by radio buttons
-    if reader=="Davis":
-        ap.change_speaker('en-US-DavisNeural')
-    elif reader == "Tony":
-        ap.change_speaker('en-US-TonyNeural')
-    elif reader == "Amber":
-        ap.change_speaker('en-US-AmberNeural')
-    else:
-        ap.change_speaker('en-US-JennyNeural')
+    lookup = {"Natasha": '4FBBpmx622VobH9OdpgF',
+              "Hades": 'DJbOYlp8OGXMXhVoUq9P',
+              "Oswald": 'JpgaTdf1skAcigpNBjTi',
+              "Sally": 'l87cDE0TXiy9JBLtsHco',
+              "Readwell": 'lHWbfJgUCFayYFtgQfwX',
+              "Bob": 'vg2Cu0P5DjGx26Zbt1rf'}
 
-    # Name the article (.mp3) and generate the audio
-    ap.configure_audio_output(file_name=f'{ap.article_title}.mp3')
-    ap.generate_audio()
+    audio_button = st.button('Generate Audio File.')
 
-    progress_text = "Processing Audio File."
+    if audio_button:
 
-    audio_file = open(f'{ap.article_title}.mp3', 'rb')
-    audio_data = audio_file.read()
-    st.audio(audio_data, format='audio/mp3')
-    st.download_button(label="Download Audio File",
-                       data=f'{ap.article_title}.mp3',
-                       file_name=f'{ap.article_title}.mp3')
+        url = f"https://api.elevenlabs.io/v1/text-to-speech/{lookup[reader]}"
+
+        headers = {
+            "Accept": "audio/mpeg",
+            "Content-Type": "application/json",
+            "xi-api-key": f"{st.secrets['speech']['eleven_labs_api']}",
+        }
+
+        data = {
+            "text": f"{st.session_state.text}",
+            "model_id": "eleven_monolingual_v1",
+            "voice_settings": {
+                "stability": 0.5,
+                "similarity_boost": 0.5
+            }
+        }
+
+        response = requests.post(url, json=data, headers=headers)
+        with open(f'{st.session_state.file_name}.mp3', 'wb') as f:
+            for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
+                if chunk:
+                    f.write(chunk)
+            f.close()
+
+        st.audio(f'{st.session_state.file_name}.mp3')
+        st.download_button(label="Download Audio File",
+                           data=f'{st.session_state.file_name}.mp3',
+                           file_name=f'{st.session_state.file_name}.mp3')
+
+else:  # User not authenticated
+    st.warning('Please log in to access this feature.')

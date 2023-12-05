@@ -5,3 +5,5 @@
  streamlit
  pytesseract
  pymupdf
+ requests
+ streamlit-authenticator

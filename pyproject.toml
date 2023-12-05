@@ -18,4 +18,6 @@ dependencies = [
     "kv_pdf_processor",
     "streamlit",
     "pytesseract",
-    "pymupdf" ]
+    "pymupdf",
+    "requests",
+    "streamlit-authenticator"]
