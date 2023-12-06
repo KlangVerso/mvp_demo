@@ -42,11 +42,9 @@ if st.session_state.auth_status:
         os.remove('temp.pdf')
 
     st.session_state.text = st.text_area(value=st.session_state.text,
-                                         label='Your Selected Articles Text')
+                                         label='Your Selected Articles Text',
+                                         height=500)
 
-
-
-    st.write(st.session_state.text)
 
 else:  # user isn't authenticated
     st.warning('Please log in to access this feature.')
