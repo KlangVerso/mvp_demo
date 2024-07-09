@@ -19,27 +19,7 @@ st.markdown(
     """
     At **KlangVerso**, our goal is to help digitize print media by providing image processing and text to speech 
     capabilities to everyone. Feel free to select from the options to the left to explore some of our capabilities.
-    
-    Please log in to continue: 
+
     """
 )
-authenticator = stauth.Authenticate(
-    dict(st.secrets['credentials']),
-    st.secrets['cookie']['name'],
-    st.secrets['cookie']['key'],
-    st.secrets['cookie']['expiry_days']
-)
-name, authentication_status, username = authenticator.login('Login', 'main')
 
-st.session_state.name = name
-st.session_state.auth_status = authentication_status
-st.session_state.username = username
-
-if st.session_state.auth_status:
-    st.write(f'Welcome back *{st.session_state["name"]}*! Please feel free to explore the other features.')
-    authenticator.logout('Logout', 'main', key='unique_key')
-
-elif authentication_status == None:
-    st.warning('Please enter your username and password')
-else:
-    st.error('Username/password is incorrect')
