@@ -62,5 +62,3 @@ if audio_button:
                        data=f'{st.session_state.file_name}.mp3',
                        file_name=f'{st.session_state.file_name}.mp3')
 
-else:  # User not authenticated
-st.warning('Please log in to access this feature.')

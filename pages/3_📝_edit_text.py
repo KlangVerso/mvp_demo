@@ -42,7 +42,3 @@ if perf_ocr:
 st.session_state.text = st.text_area(value=st.session_state.text,
                                      label='Your Selected Articles Text',
                                      height=500)
-
-
-else:  # user isn't authenticated
-st.warning('Please log in to access this feature.')

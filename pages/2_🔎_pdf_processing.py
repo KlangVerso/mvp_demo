@@ -33,6 +33,3 @@ if pdf_file:
                                                  base_name=file_name)
                 st.write(f'Successfully converted your pdf to an image.')
                 st.session_state.file_name = file_name
-
-else:  # User not authenticated
-st.warning('Please log in to access this feature.')
