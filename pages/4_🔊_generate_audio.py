@@ -59,6 +59,6 @@ if audio_button:
 
     st.audio(f'{st.session_state.file_name}.mp3')
     st.download_button(label="Download Audio File",
-                       data=f'{st.session_state.file_name}.mp3',
-                       file_name=f'{st.session_state.file_name}.mp3')
+                       data=f'audio_file.mp3',
+                       file_name=f'audio_file.mp3')
 
