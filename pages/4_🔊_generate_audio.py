@@ -51,7 +51,7 @@ if audio_button:
     }
 
     response = requests.post(url, json=data, headers=headers)
-    with open(f'{st.session_state.file_name}.mp3', 'wb') as f:
+    with open(f'audio_file.mp3', 'wb') as f:
         for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
             if chunk:
                 f.write(chunk)
