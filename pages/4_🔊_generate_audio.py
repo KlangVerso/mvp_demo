@@ -57,7 +57,7 @@ if audio_button:
                 f.write(chunk)
         f.close()
 
-    st.audio(f'{st.session_state.file_name}.mp3')
+    st.audio(f'audio_file.mp3')
     st.download_button(label="Download Audio File",
                        data=f'audio_file.mp3',
                        file_name=f'audio_file.mp3')
